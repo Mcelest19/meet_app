@@ -7,13 +7,11 @@ import { mockData } from '../mock-data';
 import { extractLocations } from '../api';
 
 describe('<CitySearch /> component', () => {
-    let locations, CitySearchWrapper;
-    beforeAll(() => {
-      locations = extractLocations(mockData);
-      CitySearchWrapper = shallow(
-        <CitySearch locations={locations} updateEvents={() => {}} />
-      );
-    });
+  let locations, CitySearchWrapper;
+  beforeAll(async () => {
+    locations = extractLocations(mockData);
+    CitySearchWrapper = shallow(<CitySearch locations={locations} updateEvents={() => {}} />);
+  });
 
   test('render text input', () => {    
     expect(CitySearchWrapper.find('.city')).toHaveLength(1);
