@@ -1,41 +1,42 @@
-// src/Event.js
-
 import React, { Component } from "react";
 
+
 class Event extends Component {
-    constructor () {
-        super();
+  state = { collapsed: true };
+  toggleDetails = () => {
+      this.setState((prevState) => ({
+          collapsed: !prevState.collapsed,
+      }));
+  };
 
-    this.state = { showDetails: true}
-    }
-
-    handleDetailsClicked = () => {
-        this.setState((prevState) => ({
-            showDetails: !prevState.showDetails
-            }))
-        };
-
-render() {
-    const { event } = this.props; 
+  render() {
+    const { event } = this.props;
+    const { collapsed } = this.state;
     return (
-            <div className="EventDetails">
-                <h1 className="summary" >{event.summary} </h1>
-                <p className="startdatetime" >Start: {new Date(event.start.dateTime).toISOString()}</p>
-                <p className="timezone">{event.timeZone}</p>
-                <p className="location"> {event.location}</p>
-                <br/>
-                {!this.showDetails && (
-                <>
-                    <h3>About Event:</h3>
-                    <a className="htmlLink">Click to refer to google{event.htmlLink}</a>
-                    <p className="description">{event.description}</p>
-                </>
-                    )}
-                    <br/><br/>
-                <button className="detailsButton" onClick={this.handleDetailsClicked()}>Show details</button>
-                
-            </div> 
-           );
-  }
+      <div className="event">
+      <h2 className="summary">{event.summary}</h2>
+      <p className="event-start">
+        {new Date(event.start.dateTime).toString()}
+      </p>
+      <p className="event-location">
+        {`@${event.summary} | ${event.location}`}
+      </p>
+      {!collapsed && (
+        <>
+          <div className="details">
+          <h3 className="about">About event:</h3>
+          <a className="link" href={event.htmlLink}>
+            See details on Google Calendar
+          </a>
+          <p className="description">{event.description}</p>
+          </div>
+        </>
+      )}
+        <button className="details-btn" onClick={() => this.toggleDetails()}>
+          {collapsed ? "show" : "hide"} details
+        </button>
+      </div>
+    )}
 }
+
 export default Event;
