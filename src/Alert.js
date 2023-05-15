@@ -29,10 +29,10 @@ class InfoAlert extends Alert {
   }
   
 class ErrorAlert extends Alert {
-constructor(props) {
-    super(props);
-    this.color = 'red';
-}
+    constructor(props) {
+      super(props);
+      this.color = 'red';
+  }
 }
 
 export { InfoAlert, ErrorAlert };

@@ -63,7 +63,7 @@ input[type="number"] {
 .suggestions > li {
   text-align: left;
   padding: 8px 6px 8px 10px;
-  background-color: #eee;
+  background-color: #f0e8e8;
   cursor: default;
 }
 
@@ -73,7 +73,7 @@ input[type="number"] {
 }
 
 .suggestions > li:hover {
-  background-color: #bcdcdb;
+  background-color: #9ec3e0;
 }
 
 .event {
@@ -130,6 +130,7 @@ input[type="number"] {
 
 .Alert {
   position: fixed;
+  text-align: center;
   top: 20px;
 }
 
