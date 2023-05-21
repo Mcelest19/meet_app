@@ -76,7 +76,7 @@ Serverless functions deployed using AWS Lambda. -Performs Oauth and accesses Goo
 
 ## User Stories and Scenarios <a name="User Stories and Scenarios"></a>
 
-  <h1> FEATURE 1: FILTER EVENTS BY CITY </h1></br>
+  <h3> FEATURE 1: FILTER EVENTS BY CITY </h3></br>
 User story: As a user, I should be able to filter events by city so that I can see the events that take place in that city.</br>
 
 <p>Scenario 1: When user hasn’t searched for specific city, show upcoming events from all cities Given app is loaded</p>
@@ -93,7 +93,7 @@ Given: the user was typing “Berlin” in the city textbox, and the list of sug
 When: user selects a city (e.g., “Berlin, Germany”) from the list of suggested cities</br>
 Then: user city should be changed to the selected city (i.e. “Berlin, Germany”) and the user should receive a list of upcoming events in specified city</p>
 
-<h1>FEATURE 2: SHOW/HIDE AN EVENT'S DETAILS</h1></br>
+<h3>FEATURE 2: SHOW/HIDE AN EVENT'S DETAILS</h3></br>
 <p>User story: As a user, I should be able to show/hide event details so that I can see more/less information about an event.</br>
 </br>
 Scenario 1: An event element is collapsed by default</br>
@@ -112,7 +112,7 @@ And: user has clicked "show details" button and details of event are shown</br>
 When: user clicks "hide details" button for the associated event from the list</br>
 Then: user should see less details of the event associated with the clicked button</p></br>
 </br>
-<h1>FEATURE 3: SPECIFY NUMBER OF EVENTS </h1></br>
+<h3>FEATURE 3: SPECIFY NUMBER OF EVENTS </h3></br>
 <p>User story: As a user, I should be able to specify the number of events I want to view in the app so that I can see more or fewer events in the events list at once.</br>
 </br>
 Scenario 1: When user hasn’t specified a number, 32 is the default number</br>
@@ -125,7 +125,7 @@ Given: the main page is open with the list of events in all cities or specified 
 When: user specifies number of events to display</br>
 Then: user receives specified number of events on the screen</p></br>
 </br>
-<h1>FEATURE 4: USE THE APP WHEN OFFLINE</h1></br>
+<h3>FEATURE 4: USE THE APP WHEN OFFLINE</h3></br>
 <p>User story: As a user, I should be able to use the app when offline so that I can see the events I viewed the last time I was online.</br>
 </br>
 Scenario 1: Show cached data when there’s no internet connection Given user doesn't have an internet connection</br>
@@ -137,7 +137,7 @@ Given: user opened the app offline and received the data viewed last time user w
 When: user tries to change the setting (city, time and range)</br>
 Then: user receives error message indicating that data is not available without internet connection</p></br>
 </br>
-<h1>FEATURE 5: DATA VISUALIZATION</h1></br>
+<h3>FEATURE 5: DATA VISUALIZATION</h3></br>
 <p>User story: As a user, I should be able to see a chart showing the upcoming events in each city so that I know what events are organized in which city.</br>
 </br>
 Scenario 1: Show a chart with the number of upcoming events in each city</br>
