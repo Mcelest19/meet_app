@@ -17,21 +17,12 @@ class App extends Component {
   state = {
     events: [],
     locations: [],
-    selectedLocation: 'all',
-    numberOfEvents: 32,
-    warningText: '',
-    showWelcomeScreen: undefined
-  };
-
-  getData = () => {
-    const {locations, events} = this.state;
-    const data = locations.map((location)=>{
-      const number = events.filter((event) => event.location === location).length;
-      const city = location.split(', ').shift();
-      return {city, number};
-    })
-    return data;
-  };
+    eventCount: 32,
+    selectedCity: "all",
+    warningText: "",
+    showWelcomeScreen: undefined,
+    
+  }
 
   async componentDidMount() {
     this.mounted = true;
@@ -54,41 +45,67 @@ class App extends Component {
     this.mounted = false;
   }
 
-  updateNumberOfEvents(number) { 
-    this.setState({
-      numberOfEvents: number,
-    })
-  }
-
-
-  updateEvents = (location, inputNumber) => {
-    const { selectedLocation } = this.state;
-    if (location) {
+  updateEvents = (location, eventCount) => {
+    if (!eventCount) {
       getEvents().then((events) => {
-        const locationEvents = (location === 'all') ?
-          events :
-          events.filter((event) => event.location === location);
-        const eventsToShow = locationEvents.slice(0, inputNumber);
+        const locationEvents =
+          location === "all"
+            ? events
+            : events.filter((event) => event.location === location);
+        const shownEvents = locationEvents.slice(0, this.state.eventCount);
         this.setState({
-          events: eventsToShow,
-          selectedLocation: location,
-          numberOfEvents: inputNumber
+          events: shownEvents,
+          selectedCity: location,
+          eventCount: this.state.eventCount,
+        });
+      });
+    } else if (eventCount && !location) {
+      getEvents().then((events) => {
+        const locationEvents = events.filter((event) =>
+          this.state.locations.includes(event.location)
+        );
+        const shownEvents = locationEvents.slice(0, eventCount);
+        this.setState({
+          events: shownEvents,
+          eventCount: eventCount,
+        });
+      });
+    } else if (this.state.selectedCity === "all") {
+      getEvents().then((events) => {
+        const locationEvents = events;
+        const shownEvents = locationEvents.slice(0, eventCount);
+        this.setState({
+          events: shownEvents,
+          eventCount: eventCount,
         });
       });
     } else {
       getEvents().then((events) => {
-        const locationEvents = (selectedLocation === 'all') ?
-          events :
-          events.filter((event) => event.location === selectedLocation);
-        const eventsToShow = locationEvents.slice(0, inputNumber);
+        const locationEvents =
+          this.state.locations === "all"
+            ? events
+            : events.filter(
+                (event) => this.state.selectedCity === event.location
+              );
+        const shownEvents = locationEvents.slice(0, eventCount);
         this.setState({
-          events: eventsToShow,
-          numberOfEvents: inputNumber 
+          events: shownEvents,
+          eventCount: eventCount,
         });
-      })
+      });
     }
-  }
+  };
 
+
+  getData = () => {
+    const {locations, events} = this.state;
+    const data = locations.map((location) => {
+      const number = events.filter((event) => event.location === location).length
+      const city = location.split(', ').shift()
+      return {city, number};
+    })
+    return data;
+  };
 
 
   render() {
@@ -102,7 +119,7 @@ class App extends Component {
           <h1>Meet App</h1>
           <WarningAlert text={offlineMessage}></WarningAlert>
           <CitySearch  locations={this.state.locations} updateEvents={this.updateEvents} />
-          <NumberOfEvents numberOfEvents={this.state.numberOfEvents} updateEvents={this.updateEvents} />
+          <NumberOfEvents numberOfEvents={this.state.eventCount} updateEvents={this.updateEvents} />
           <h4>Events in each city</h4>
         </div>
         <div className="data-vis-wrapper">

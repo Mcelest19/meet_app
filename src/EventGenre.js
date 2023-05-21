@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from "react";
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from "recharts";
+
+
+const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8', '#635C51', '#ABA9C3'];
+
+const getData = (events) => {
+  const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'Angular'];
+  const data = genres.map((genre) => {
+      const value = events.filter(({ summary }) =>
+          summary.includes(genre)).length;
+          return { name: genre, value };
+      });
+      return data;
+};
 
 const EventGenre = ({ events }) => {
-  const [data, setData] = useState([]);
-
-  const colors = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
-
-  useEffect(() => {
-    setData(getData());
-  }, [events]);
-
-  function getData() {
-    const genres = ['React', 'JavaScript', 'Node', 'jQuery', 'AngularJS'];
-
-    const data = genres.map((genre, index) => {
-      const value = events.filter(({ summary }) => summary.split(" ").includes(genre)).length;
-
-      return { name: genre, value};
-    });
-
-    return data;
-  }
+    const [data, setData] = useState([]);
+    
+    useEffect(() => {
+        setData(() => getData(events));
+    }, [events]);
 
   return (
     <ResponsiveContainer height={300}>
@@ -33,9 +32,11 @@ const EventGenre = ({ events }) => {
           outerRadius={80}
           label={({ percent }) => `${(percent * 100).toFixed(0)} %`}
         >
-         {data.map((index) => ( 
-            <Cell key={`cell-${index}`} fill={colors[index]} /> ))}
-        </Pie>        
+          {data.map((entry, index) => ( 
+              <Cell key={`cell-${index}`} fill={colors[index]} /> ))}
+         
+        </Pie>
+        <Legend verticalAlign="bottom" layout="horizontal"  formatter={(value, entry, index) => <span style={{ color: entry.color }}>{entry.payload.name}</span>} />
         <Tooltip />
       </PieChart>
     </ResponsiveContainer>
