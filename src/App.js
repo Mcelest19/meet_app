@@ -50,8 +50,6 @@ class App extends Component {
 
   updateEvents = (location, eventCount) => {
     if (!eventCount) {
-      console.log("1")
-      console.log(eventCount)
       getEvents().then((events) => {
         const locationEvents =
           location === "all" 
@@ -65,8 +63,6 @@ class App extends Component {
         });
       });
     } else if (eventCount && !location) {
-      console.log("2")
-      console.log(eventCount)
       getEvents().then((events) => {
         const locationEvents = events.filter((event) =>
           this.state.locations.includes(event.location)
@@ -78,8 +74,6 @@ class App extends Component {
         });
       });
     } else if (this.state.selectedCity === "all") {
-      console.log("3")
-      console.log(eventCount)
       getEvents().then((events) => {
         const locationEvents = events;
         const shownEvents = locationEvents.slice(0, eventCount);
@@ -89,8 +83,6 @@ class App extends Component {
         });
       });
     } else {
-      console.log("4")
-      console.log(eventCount)
       getEvents().then((events) => {
         const locationEvents =
           this.state.locations === "all"
