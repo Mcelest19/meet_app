@@ -14,15 +14,17 @@ import { ScatterChart, Scatter, XAxis, YAxis, CartesianGrid, Tooltip, Responsive
 
 
 class App extends Component {
-  state = {
-    events: [],
-    locations: [],
-    eventCount: 32,
-    selectedCity: "all",
-    warningText: "",
-    showWelcomeScreen: undefined,
-    
-  }
+  constructor() {
+    super();
+    this.state = {
+      events: [],
+      locations: [],
+      eventCount: 32,
+      selectedCity: null,
+      warningText: "",
+      showWelcomeScreen: undefined,
+      }
+    }
 
   async componentDidMount() {
     this.mounted = true;
@@ -34,7 +36,8 @@ class App extends Component {
     if ((code || isTokenValid) && this.mounted) {
       getEvents().then((events) => {
         if (this.mounted) {
-          this.setState({ events, locations: extractLocations(events) });
+          const shownEvents = events.slice(0, this.state.eventCount);
+          this.setState({ events: shownEvents, locations: extractLocations(events) });
         }
       });
     }
@@ -47,9 +50,11 @@ class App extends Component {
 
   updateEvents = (location, eventCount) => {
     if (!eventCount) {
+      console.log("1")
+      console.log(eventCount)
       getEvents().then((events) => {
         const locationEvents =
-          location === "all"
+          location === "all" 
             ? events
             : events.filter((event) => event.location === location);
         const shownEvents = locationEvents.slice(0, this.state.eventCount);
@@ -60,6 +65,8 @@ class App extends Component {
         });
       });
     } else if (eventCount && !location) {
+      console.log("2")
+      console.log(eventCount)
       getEvents().then((events) => {
         const locationEvents = events.filter((event) =>
           this.state.locations.includes(event.location)
@@ -71,6 +78,8 @@ class App extends Component {
         });
       });
     } else if (this.state.selectedCity === "all") {
+      console.log("3")
+      console.log(eventCount)
       getEvents().then((events) => {
         const locationEvents = events;
         const shownEvents = locationEvents.slice(0, eventCount);
@@ -80,6 +89,8 @@ class App extends Component {
         });
       });
     } else {
+      console.log("4")
+      console.log(eventCount)
       getEvents().then((events) => {
         const locationEvents =
           this.state.locations === "all"
@@ -119,7 +130,7 @@ class App extends Component {
           <h1>Meet App</h1>
           <WarningAlert text={offlineMessage}></WarningAlert>
           <CitySearch  locations={this.state.locations} updateEvents={this.updateEvents} />
-          <NumberOfEvents numberOfEvents={this.state.eventCount} updateEvents={this.updateEvents} />
+          <NumberOfEvents selectedCity={this.state.selectedCity} query={this.state.eventCount} updateEvents={this.updateEvents} />
           <h4>Events in each city</h4>
         </div>
         <div className="data-vis-wrapper">
