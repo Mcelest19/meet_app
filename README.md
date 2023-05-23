@@ -30,6 +30,12 @@ After you're finished please remove all the comments and instructions!
 <div align="center">  
 
   <h3><b>README</b></h3>
+  <p align="center" >
+   
+    <img alt="Meet App" src="./public/resultMeet.gif" width="800" height="510" />
+ </a>
+
+</p>
 
 </div>
 
