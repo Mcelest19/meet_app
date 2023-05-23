@@ -31,7 +31,7 @@ After you're finished please remove all the comments and instructions!
 
   <h3><b>README</b></h3>
   <p align="center" >   
-    <img alt="Meet App" src="./public/resultMeet.gif" width="700" height="610" />
+    <img alt="Meet App" src="./public/resultMeet.gif" width="600" height="500" />
  </a>
 
 </p>
